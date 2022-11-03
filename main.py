@@ -72,7 +72,7 @@ def proyectoFinal():
             # no existe simbolo para ese estado asi que la cadena es invalida
             cadenaValida = False
 
-    # se pone else despues de un for para que ejecute esta linea al terminar el bucle
+    #al finalizar el for se valida que el estado actual sea el estado final
     if estadoActual in estadoFinal:
         cadenaValida = True
     else:
