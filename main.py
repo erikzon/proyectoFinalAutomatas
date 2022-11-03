@@ -5,6 +5,8 @@
 # validar que solo se ingrese un estado inicial y que este pertenezca a los estados declarados
 # validar que los estados finales pertenezcan a los estados declarados
 # validar que el alfabeto no tenga simbolos repetidos
+# validar que las entradas que recibe en la linea 36 y 38 correspondan con las sugerencias (que no ingrese estado en
+# los simbolos)
 
 ########NIVEL DIFICIL:
 # hacer que despues de validar una cadena vuelva a preguntar por otra cadena o que reciba varias y valide todas una por una
@@ -73,7 +75,7 @@ def proyectoFinal():
             cadenaValida = False
 
     #al finalizar el for se valida que el estado actual sea el estado final
-    if estadoActual in estadoFinal:
+    if estadoActual in estadoFinal and cadenaValida == True:
         cadenaValida = True
     else:
         cadenaValida = False
