@@ -1,5 +1,5 @@
 # TODO
-########NIVEL NORMAL:
+# NIVEL NORMAL:
 # validar que los estados no se llamen igual
 # validar que los estados solo sean signos y letras mayusculas
 # validar que solo se ingrese un estado inicial y que este pertenezca a los estados declarados
@@ -8,27 +8,56 @@
 # validar que las entradas que recibe en la linea 36 y 38 correspondan con las sugerencias (que no ingrese estado en
 # los simbolos)
 
-########NIVEL DIFICIL:
+# NIVEL DIFICIL:
 # hacer que despues de validar una cadena vuelva a preguntar por otra cadena o que reciba varias y valide todas una por una
 
-########NIVEL DIOS:
+# NIVEL DIOS:
 # tratar de que el alfabeto reciba mas de 1 caracter por simbolo
 # tratar de dibujar el diagrama del automata
 
 def proyectoFinal():
-    estados = input("Ingrese los estados separados por comas:\n")
-    estadosArray = estados.split(",")
+
+    #recibir estados:
+    protoestados = input("Ingrese los estados separados por comas:\n")
+
+    estadosArray = protoestados.upper().split(",")
+
+
+
+
+
+    print("sus estados iniciales son: " , estadosArray)
 
     # recibir estado inicial
-    estadoInicial = input("Ingrese el estado inicial:\n")
+    global flagI
+    flagI = False
+    while flagI == False:
+        protoestadoInicial = input("Ingrese el estado inicial:\n")
+        if protoestadoInicial.upper() in estadosArray:
+            print("Si esta dentro de los estados")
+            estadoInicial = protoestadoInicial.upper()
+            flagI = True
+        else:
+            print("No esta dentro de los estados")
+            flagI = False
 
     # recibir el estadofinal
-    estadoFinal = input("Ingrese el o los estados finales separados por coma:\n")
-    estadosFinalesArray = estadoFinal.split(",")
+
+    global flagE
+    flagE = False
+    while flagE == False:
+        protoestadoFinal = input("Ingrese el o los estados finales separados por coma:\n")
+        if protoestadoFinal.upper() in estadosArray:
+            estadoFinal = protoestadoFinal.upper().split(",")
+            estadosFinalesArray = estadoFinal
+            flagE = True
+        else:
+            print("No esta dentro de los estados")
+            flagE = False
 
     # recibir el alfabeto
     alfabeto = input("Ingrese el alfabeto separados por coma:\n")
-    alfabetoArray = alfabeto.split(",")
+    alfabetoArray = alfabeto.lower().split(",")
 
     # recibir las transiciones, se almacenaran en diccionarios
     destino = {}
@@ -67,19 +96,21 @@ def proyectoFinal():
             # si es valido entonces seteamos el destino
             # si existe mas de un destino obtenemos el destino correspondiente a la posicion a la que se declaro
             if len(destino[estadoActual]) > 1:
-                estadoActual = destino[estadoActual].split(',')[simbolo[estadoActual].split(',').index(caracter)]
+                estadoActual = destino[estadoActual].split(
+                    ',')[simbolo[estadoActual].split(',').index(caracter)]
             else:
                 estadoActual = destino[estadoActual]
         else:
             # no existe simbolo para ese estado asi que la cadena es invalida
             cadenaValida = False
 
-    #al finalizar el for se valida que el estado actual sea el estado final
+    # al finalizar el for se valida que el estado actual sea el estado final
     if estadoActual in estadoFinal and cadenaValida == True:
         cadenaValida = True
     else:
         cadenaValida = False
-    print("la cadena " + cadena + " es valida") if cadenaValida else print("la cadena " + cadena + " es invalida.")
+    print("la cadena " + cadena +
+          " es valida") if cadenaValida else print("la cadena " + cadena + " es invalida.")
 
 
 if __name__ == '__main__':
