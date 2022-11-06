@@ -1,30 +1,17 @@
-# TODO
-# NIVEL NORMAL:
-# validar que los estados no se llamen igual
-# validar que los estados solo sean signos y letras mayusculas
-# validar que solo se ingrese un estado inicial y que este pertenezca a los estados declarados
-# validar que los estados finales pertenezcan a los estados declarados
-# validar que el alfabeto no tenga simbolos repetidos
-# validar que las entradas que recibe en la linea 36 y 38 correspondan con las sugerencias (que no ingrese estado en
-# los simbolos)
-
-# NIVEL DIFICIL:
-# hacer que despues de validar una cadena vuelva a preguntar por otra cadena o que reciba varias y valide todas una por una
 def proyectoFinal():
     #recibir estados:
     global flag
     flag = False
     global estado
     estado = ""
+    estadosArray=[]
     while flag == False:
-        protoestados = input("Ingrese los estados separados por comas:\n")
+        protoestados = input("Ingrese los estados de uno en uno:\n").upper()
         if protoestados.upper() in estado.upper():
             print("#Ya existe este estado")
         else:
             print("Estado agregado")
-            estado = estado + protoestados
-            estadosArray = estado.upper().split(",")
-
+            estadosArray.append(protoestados.upper())
         seguir = input("////Desea ingresar mas estados? \n//// 1. Si \n ////0. No ")
         if seguir == "1":
             flag = False
@@ -40,36 +27,42 @@ def proyectoFinal():
     # recibir estado inicial
     global flagI
     flagI = False
-    global estadoInicial
-    estadoInicial=""
     while flagI == False:
-        protoestadoInicial = input("Ingrese el estado inicial:\n")
-        if protoestadoInicial.upper() in estadosArray:
+        estadoInicial = input("Ingrese el estado inicial:\n").upper()
+
+        if estadoInicial.upper() in estadosArray:
             print("Si esta dentro de los estados")
-            estadoInicial = protoestadoInicial.upper()
+            estadoInicial = estadoInicial.upper()
             flagI = True
         else:
             print("#No esta dentro de los estados")
             flagI = False
-    print("--Sus estados Iniciales son: ", estadoInicial)
+    print("--Su estado Inicial definido es: ", estadoInicial)
 
 
 
     # recibir el estados finales
     global flagE
     flagE = False
-    global estadoFinal
-    estadoFinal = ""
+    estadosFinalesArray = []
     while flagE == False:
-        protoestadoFinal = input("Ingrese el o los estados finales separados por coma:\n")
-        if estadosArray in protoestadoFinal.upper().split(","):
-            estadoFinal = protoestadoFinal.upper().split(",")
-            estadosFinalesArray = estadoFinal
+        estadoFinal = input("Ingrese el o los estados finales de uno en uno:\n").upper()
+        if estadoFinal.upper() in estadosArray:
+            estadosFinalesArray.append(estadoFinal.upper())
             flagE = True
         else:
             print("#No esta dentro de los estados")
             flagE = False
-    print("--Sus estados Finales son: ", estadoFinal)
+
+        seguirE = input("Desea seguir? \n//// 1 = Si \n //// 0 = No")
+        if seguir == "1":
+            flag = False
+        else:
+            if seguir == "0":
+                print("--Sus estados Finales definidos son: ", estadosFinalesArray)
+                flag = True
+            else:
+                print("##Error, por favor escriba con número \n//// 1 = Si \n //// 0 = No")
 
 
     # recibir el alfabeto
@@ -77,22 +70,21 @@ def proyectoFinal():
     flagAl = False
     global alfabeto
     alfabeto = ""
+    alfabetoArray=[]
     while flagAl == False:
-        protoalfabeto = input("Ingrese el alfabeto aceptado separados por comas:\n")
-        if protoalfabeto.lower() in alfabeto.lower():
+        alfabeto = input("Ingrese el alfabeto aceptado de uno en uno:\n").upper()
+        if alfabeto.lower() in alfabetoArray:
             print("#Ya existe este estado")
         else:
-            print("Estado agregado")
-            alfabeto = alfabeto + protoalfabeto
-            alfabeto = alfabeto.lower().split(",")
-            alfabetoArray = alfabeto
+            print("Caracter de alfabeto agregado")
+            alfabetoArray.append(alfabeto.lower())
 
-        seguir = input("////Desea ingresar mas estados? \n 1. Si \n 0. No ")
+        seguir = input("////Desea ingresar mas alfabeto? \n 1. Si \n 0. No ")
         if seguir == "1":
             flagAl = False
         else:
             if seguir == "0":
-                print("--Sus estados definidos son: ", estadosArray)
+                print("--Su alfabeto definido es: ", alfabetoArray)
                 flagAl = True
             else:
                 print("##Error, por favor escriba con número \n //// 1 = Si \n //// 0 = No")
@@ -104,7 +96,7 @@ def proyectoFinal():
     simbolo = {}
     for estado in estadosArray:
         destino[estado] = input(
-            f"ingrese los destinos para el estado: {estado} separados por coma, pueden ser: {estadosArray}")
+            f"ingrese los destinos para el estado: {estado} separados por coma, pueden ser: {estadosArray}").upper()
         simbolo[estado] = input(
             f"ingrese los simbolos para el estado: {estado} separados por coma, puede ser: {alfabetoArray}")
 
