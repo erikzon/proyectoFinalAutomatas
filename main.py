@@ -159,6 +159,7 @@ def proyectoFinal():
         else:
             if newstring == "0":
                 print("Fue un gusto, adios")
+                flagCad = True
             else:
                 print("##Error, por favor escriba con número \n 1 = Si \n 0 = No")
 
